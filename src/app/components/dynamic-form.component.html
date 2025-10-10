@@ -1,0 +1,84 @@
+<!-- form title -->
+<h2>{{ schema.title }}</h2>
+
+<!-- dynamic form -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-fields">
+        <!-- render each form field -->
+        @for (field of schema.fields; track field.name) {
+            <div class="form-field">
+                <label [for]="field.name">{{ field.label }}</label>
+
+                <!-- text input -->
+                @if (field.type === 'text') {
+                    <input
+                        [id]="field.name"
+                        type="text"
+                        [formControlName]="field.name"
+                        [placeholder]="field.label"
+                    />
+                }
+
+                <!-- date input -->
+                @if (field.type === 'date') {
+                    <input
+                        [id]="field.name"
+                        type="date"
+                        [formControlName]="field.name"
+                    />
+                }
+
+                <!-- textarea input -->
+                @if (field.type === 'textarea') {
+                    <textarea
+                        [id]="field.name"
+                        [formControlName]="field.name"
+                        [placeholder]="field.label"
+                        rows="4"
+                    ></textarea>
+                }
+
+                <!-- dropdown select -->
+                @if (field.type === 'dropdown') {
+                    <select [id]="field.name" [formControlName]="field.name">
+                        <option value="">Select {{ field.label }}</option>
+                        @for (option of field.options; track option) {
+                            <option [value]="option">{{ option }}</option>
+                        }
+                    </select>
+                }
+
+                <!-- multiselect -->
+                @if (field.type === 'multiselect') {
+                    <select [id]="field.name" [formControlName]="field.name" multiple>
+                        @for (option of field.options; track option) {
+                            <option [value]="option">{{ option }}</option>
+                        }
+                    </select>
+                }
+
+                <!-- checkbox -->
+                @if (field.type === 'checkbox') {
+                    <div class="checkbox-wrapper">
+                        <input
+                            [id]="field.name"
+                            type="checkbox"
+                            [formControlName]="field.name"
+                        />
+                        <span class="checkbox-label">{{ field.label }}</span>
+                    </div>
+                }
+
+                <!-- validation error message -->
+                @if (hasError(field.name)) {
+                    <div class="error-message">
+                        {{ getErrorMessage(field) }}
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- form submit button -->
+    <button type="submit">Submit</button>
+</form>

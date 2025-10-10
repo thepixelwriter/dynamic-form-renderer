@@ -1,0 +1,95 @@
+// form container styles
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+// individual form field styles
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    // input styles
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        
+        &:focus {
+            outline: none;
+            border-color: #6b98d4;
+            box-shadow: 0 0 0 2px rgba(107, 152, 212, 0.15);
+        }
+    }
+
+    // textarea specific styles
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    // multiselect styles
+    select[multiple] {
+        min-height: 120px;
+    }
+
+    // checkbox wrapper styles
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            cursor: pointer;
+        }
+    }
+}
+
+// error message styles
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+// submit button styles
+button[type="submit"] {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #6b98d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: #5a82b7;
+    }
+
+    &:disabled {
+        background-color: #d1d1d1;
+        cursor: not-allowed;
+    }
+}
