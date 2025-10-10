@@ -73,7 +73,8 @@ import { FormSchema } from '../interfaces/form.interface';
                         </div>
                     } @else {
                         <div class="alert alert-info">
-                            <h5 class="alert-heading">No Data Submitted</h5>
+                            <h5 class="alert-heading">Preview Pane</h5>
+                            <p class="mb-0">No Form Submitted.</p>
                             <p class="mb-0">Submit the form to see the preview and JSON output here.</p>
                         </div>
                     }
