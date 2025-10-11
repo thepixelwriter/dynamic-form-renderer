@@ -120,13 +120,15 @@ export class RegistrationFormComponent {
                 "label": "Full Name",
                 "name": "fullName",
                 "type": "text",
-                "required": true
+                "required": true,
+                "placeholder": "Enter your full name"
             },
             {
                 "label": "Email",
                 "name": "email",
                 "type": "text",
                 "required": true,
+                "placeholder": "Enter your email address",
                 "validation": {
                     "pattern": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
                     "message": "Invalid email address"

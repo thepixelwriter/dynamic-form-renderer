@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormSchema, FormField } from '../interfaces/form.interface';
+import { DynamicInputComponent } from './dynamic-input/dynamic-input.component';
 
 @Component({
     selector: 'app-dynamic-form',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, DynamicInputComponent],
     template: `
         <div class="container py-4">
             <h2 class="mb-4">{{ schema.title }}</h2>
@@ -17,24 +18,12 @@ import { FormSchema, FormField } from '../interfaces/form.interface';
                         @if (evaluateFieldVisibility(field)) {
                             <div class="col-12" [class.col-md-6]="field.type !== 'textarea'">
                                 <div class="form-group">
-                                @if (field.type !== 'checkbox') {
-                                    <label [for]="field.name" class="form-label">
-                                        {{ field.label }}
-                                        @if (field.required) {
-                                            <span class="text-danger">*</span>
-                                        }
-                                    </label>
-                                }
-
                                 @switch (field.type) {
                                     @case ('text') {
-                                        <input
-                                            [id]="field.name"
-                                            type="text"
-                                            [formControlName]="field.name"
-                                            class="form-control"
-                                            [class.is-invalid]="hasError(field.name)"
-                                            [placeholder]="'Enter ' + field.label"
+                                        <app-dynamic-input
+                                            [field]="field"
+                                            [form]="form"
+                                            [controlErrors]="getControlErrors(field)"
                                         />
                                     }
                                     @case ('date') {
@@ -102,19 +91,7 @@ import { FormSchema, FormField } from '../interfaces/form.interface';
                                     }
                                 }
 
-                                @if (hasError(field.name)) {
-                                    <div class="invalid-feedback">
-                                        @if (field.validation?.message) {
-                                            {{ field.validation?.message }}
-                                        } @else {
-                                            @if (form.get(field.name)?.errors?.['required']) {
-                                                {{ field.label }} is required
-                                            } @else {
-                                                Invalid {{ field.label }}
-                                            }
-                                        }
-                                    </div>
-                                }
+
                                 </div>
                             </div>
                         }
@@ -225,5 +202,12 @@ export class DynamicFormComponent {
         Object.values(formGroup.controls).forEach(control => {
             control.markAsTouched();
         });
+    }
+
+    getControlErrors(field: FormField): { [key: string]: string } {
+        return {
+            required: `${field.label} is required`,
+            pattern: field.validation?.message || `${field.label} is invalid`
+        };
     }
 }

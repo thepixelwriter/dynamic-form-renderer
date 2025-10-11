@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
         <div class="min-vh-100 bg-light">
             <nav class="navbar navbar-dark bg-primary mb-4">
                 <div class="container">
-                    <span class="navbar-brand">Dynamic Form Renderer</span>
+                    <span class="navbar-brand">Dynamic Form Renderer - Peer Island</span>
                 </div>
             </nav>
             <main class="container">

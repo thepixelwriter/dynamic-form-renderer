@@ -1,0 +1,17 @@
+<div class="form-field" [formGroup]="form">
+  <label [for]="field.name" class="form-label">
+    {{ field.label }}
+    <span class="text-danger" *ngIf="field.required">*</span>
+  </label>
+  <input
+    [type]="field.type"
+    [id]="field.name"
+    [formControlName]="field.name"
+    [placeholder]="placeholder"
+    class="form-control"
+    [class.is-invalid]="!isFieldValid"
+  />
+  <div class="invalid-feedback" *ngIf="!isFieldValid">
+    {{ errorMessage }}
+  </div>
+</div>
